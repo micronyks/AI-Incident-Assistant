@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+langchain
+langgraph
+langsmith
+chromadb
+sentence-transformers
+python-dotenv
+pytest
+black
+ruff
