@@ -14,3 +14,8 @@ Stack:
 - Hugging Face
 
 Current milestone: Project Foundation
+
+Steps:
+
+uv add pydantic-settings
+uv add sqlalchemy pymysql
