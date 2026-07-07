@@ -15,6 +15,53 @@ class Settings(BaseSettings):
     database_name: str = "enterprise_ai"
     database_user: str
     database_password: str
+    
+
+    # ===========================
+    # Embedding Model
+    # ===========================
+    embed_model: str = "nomic-ai/nomic-embed-text-v1.5"
+
+    # ===========================
+    # Groq
+    # ===========================
+    groq_api_key: str
+
+    # ===========================
+    # OpenAI
+    # ===========================
+    openai_api_key: str | None = None
+    openai_model: str = "gpt-4o-mini"
+
+    # ===========================
+    # Google
+    # ===========================
+    google_api_key: str | None = None
+    google_model: str = "gemini-2.5-flash"
+
+    # ===========================
+    # Hugging Face
+    # ===========================
+    hf_token: str | None = None
+
+    # ===========================
+    # Tavily
+    # ===========================
+    search_provider: str = "tavily"
+    tavily_api_key: str | None = None
+
+    # ===========================
+    # Pinecone
+    # ===========================
+    pinecone_api_key: str | None = None
+
+    # ===========================
+    # LangSmith
+    # ===========================
+    langsmith_tracing: bool = False
+    langsmith_endpoint: str | None = None
+    langsmith_api_key: str | None = None
+    langsmith_project: str = "enterprise-ai-platform"
 
     model_config = SettingsConfigDict(
         env_file=".env",

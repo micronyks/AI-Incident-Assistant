@@ -10,13 +10,15 @@ from app.schemas.request import CreateRequest
 
 class RequestService:
 
-    def __init__(self):
+    def __init__(
+        self,
+        db: Session,
+    ):
 
-        self.repository = RequestRepository()
+        self.repository = RequestRepository(db)
 
     def create(
         self,
-        db: Session,
         request: CreateRequest,
     ) -> Request:
 
@@ -33,9 +35,21 @@ class RequestService:
             priority=request.priority,
 
             status=RequestStatus.SUBMITTED,
+
+            resolution_summary=None,
+
+            assigned_team=None,
         )
 
-        return self.repository.create(
-            db,
-            entity,
+        return self.repository.create(entity)
+
+    def search_similar(
+        self,
+        query: str,
+        limit: int = 5,
+    ) -> list[Request]:
+
+        return self.repository.search_similar(
+            query=query,
+            limit=limit,
         )

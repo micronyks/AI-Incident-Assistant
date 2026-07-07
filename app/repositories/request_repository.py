@@ -1,3 +1,4 @@
+from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from app.models.request import Request
@@ -5,16 +6,36 @@ from app.models.request import Request
 
 class RequestRepository:
 
+    def __init__(self, db: Session):
+        self.db = db
+
     def create(
         self,
-        db: Session,
         request: Request,
     ) -> Request:
 
-        db.add(request)
+        self.db.add(request)
 
-        db.commit()
+        self.db.commit()
 
-        db.refresh(request)
+        self.db.refresh(request)
 
         return request
+
+    def search_similar(
+        self,
+        query: str,
+        limit: int = 5,
+    ) -> list[Request]:
+
+        return (
+            self.db.query(Request)
+            .filter(
+                or_(
+                    Request.title.ilike(f"%{query}%"),
+                    Request.description.ilike(f"%{query}%"),
+                )
+            )
+            .limit(limit)
+            .all()
+        )

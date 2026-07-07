@@ -36,3 +36,6 @@ class Request(BaseEntity):
         default=RequestStatus.SUBMITTED,
         nullable=False,
     )
+
+    resolution_summary = mapped_column(Text, nullable=True)
+    assigned_team = mapped_column(String(100), nullable=True)

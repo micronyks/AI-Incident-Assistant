@@ -3,7 +3,8 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
-from app.schemas.request import CreateRequest, RequestResponse
+from app.schemas.request import CreateRequest
+from app.schemas.request import RequestResponse
 from app.services.request_service import RequestService
 
 router = APIRouter(
@@ -11,14 +12,18 @@ router = APIRouter(
     tags=["Requests"],
 )
 
-service = RequestService()
 
-
-@router.post("", response_model=RequestResponse)
+@router.post(
+    "",
+    response_model=RequestResponse,
+)
 def create_request(
     request: CreateRequest,
     db: Session = Depends(get_db),
 ):
-    entity = service.create(db, request)
+
+    service = RequestService(db)
+
+    entity = service.create(request)
 
     return RequestResponse.model_validate(entity)

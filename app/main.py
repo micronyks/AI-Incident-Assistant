@@ -9,6 +9,14 @@ from app.database.session import get_db
 from app.config.settings import settings
 from app.core.logging import configure_logging
 from app.api.routes.request import router as request_router
+from app.api.routes.ai import router as ai_router
+from app.api.routes.incidents import router as incident_router
+
+
+
+from app.core.langsmith import configure_langsmith
+
+configure_langsmith()
 
 configure_logging()
 
@@ -23,6 +31,9 @@ app = FastAPI(
 )
 
 app.include_router(request_router)
+app.include_router(ai_router)
+app.include_router(incident_router)
+
 
 @app.get("/")
 async def root():

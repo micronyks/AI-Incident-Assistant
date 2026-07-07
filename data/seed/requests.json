@@ -1,0 +1,31 @@
+[
+  {
+    "title": "Laptop blue screen",
+    "description": "Laptop crashes after 30 minutes with a blue screen.",
+    "category": "HARDWARE",
+    "priority": "P2",
+    "status": "OPEN",
+    "resolution_summary": "Faulty RAM module replaced.",
+    "assigned_team": "Hardware Support"
+  },
+  {
+    "title": "VPN not connecting",
+    "description": "Unable to connect after changing corporate password.",
+    "category": "NETWORK",
+    "priority": "P2",
+    "status": "OPEN",
+    "resolution_summary": "Reset VPN profile and synchronized Active Directory credentials.",
+    "assigned_team": "Network Operations"
+  },
+  {
+    "title": "Outlook keeps crashing",
+    "description": "Outlook closes immediately after launch.",
+    "category": "SOFTWARE",
+    "priority": "P3",
+    "status": "RESOLVED",
+    "resolution_summary": "Created new Outlook profile.",
+    "assigned_team": "Desktop Support"
+  }
+
+  // Continue with similar realistic records...
+]

@@ -6,6 +6,7 @@ class RequestCategory(str, Enum):
     FEATURE = "FEATURE"
     HARDWARE = "HARDWARE"
     SOFTWARE = "SOFTWARE"
+    NETWORK = "NETWORK"
     ACCESS = "ACCESS"
     SECURITY = "SECURITY"
     OTHER = "OTHER"
@@ -19,8 +20,9 @@ class RequestPriority(str, Enum):
 
 
 class RequestStatus(str, Enum):
-    SUBMITTED = "SUBMITTED"
+    OPEN = "OPEN"
     IN_PROGRESS = "IN_PROGRESS"
+    SUBMITTED = "SUBMITTED"
     WAITING_FOR_APPROVAL = "WAITING_FOR_APPROVAL"
     RESOLVED = "RESOLVED"
     CLOSED = "CLOSED"
