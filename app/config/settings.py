@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     # Embedding Model
     # ===========================
     embed_model: str = "nomic-ai/nomic-embed-text-v1.5"
+    ollama_base_url: str = "http://localhost:11434"
+    llama_model: str = "nomic-embed-text"
 
     # ===========================
     # Groq

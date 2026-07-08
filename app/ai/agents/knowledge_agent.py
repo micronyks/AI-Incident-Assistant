@@ -51,7 +51,7 @@ class KnowledgeAgent:
             ]
         )
 
-    def run(self, question: str):
+    def run(self, question: str, title: str):
 
         docs = self.knowledge_tool.search(question)
 
@@ -61,7 +61,7 @@ class KnowledgeAgent:
 
 
         db_result = self.incident_history_tool.search(
-            query=question,
+            query=title,
             limit=5,
         )
 
@@ -81,7 +81,7 @@ class KnowledgeAgent:
                                                 Assigned Team:
                                                 {incident.assigned_team}
                                              """
-                                        for incident in history
+                                        for incident in db_result
                                     )
 
         chain = self.prompt | self.structured_llm

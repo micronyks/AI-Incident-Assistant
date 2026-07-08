@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter
 
 from app.ai.schemas.incident import (
@@ -5,6 +7,10 @@ from app.ai.schemas.incident import (
     IncidentAnalysisResponse,
 )
 from app.ai.workflows.incident_analysis import incident_workflow
+
+from langgraph.types import Command
+
+from app.schemas.resume import ResumeRequest
 
 router = APIRouter(
     prefix="/api/v1/incidents",
@@ -19,11 +25,19 @@ router = APIRouter(
 def analyze_incident(
     request: IncidentAnalysisRequest,
 ):
+    config = {
+        "configurable": {
+            "thread_id": str(uuid.uuid4())
+        }
+    }
+
+    print(f"Thread ID: {config['configurable']['thread_id']}")
     result = incident_workflow.invoke(
         {
             "title": request.title,
             "description": request.description,
-        }
+        },
+        config=config
     )
 
     return IncidentAnalysisResponse(
@@ -40,3 +54,29 @@ def analyze_incident(
         priority_confidence=result["priority_confidence"],  
         priority_reason=result["priority_reason"],
     )
+
+
+
+
+@router.post("/resume")
+def resume_incident(
+    request: ResumeRequest,
+):
+
+    config = {
+        "configurable": {
+            "thread_id": request.thread_id
+        }
+    }
+
+    result = incident_workflow.invoke(
+        Command(
+            resume={
+                "status": request.status.value,
+                "approved_by": request.approved_by,
+            }
+        ),
+        config=config,
+    )
+
+    return result

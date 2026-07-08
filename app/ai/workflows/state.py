@@ -24,3 +24,12 @@ class IncidentState(TypedDict):
     priority: str
     priority_confidence: float
     priority_reason: str
+
+    # Reviewer
+    review_approved: bool
+    review_comments: str
+    review_confidence: float
+
+    # HITL
+    approval_status: str
+    approved_by: str
