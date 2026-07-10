@@ -1,11 +1,15 @@
 from typing import TypedDict
 
 from app.ai.schemas.incident import SourceModel
+from app.domain.enums import RequestCategory
 
 
 class IncidentState(TypedDict):
     title: str
     description: str
+    request_Id: str
+    thread_Id: str
+    reported_category: RequestCategory
 
     # Knowledge Agent
     summary: str
@@ -14,6 +18,8 @@ class IncidentState(TypedDict):
     escalation_team: str
     knowledge_confidence: float
     sources: list[SourceModel]
+    similar_incidents: list[str]  # List of similar incidents with their details
+    assigned_team: str  # The team assigned to handle the incident
 
     # Classification Agent
     category: str
@@ -29,6 +35,7 @@ class IncidentState(TypedDict):
     review_approved: bool
     review_comments: str
     review_confidence: float
+    requires_human_approval: bool
 
     # HITL
     approval_status: str

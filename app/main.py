@@ -11,10 +11,7 @@ from app.core.logging import configure_logging
 from app.api.routes.request import router as request_router
 from app.api.routes.ai import router as ai_router
 from app.api.routes.incidents import router as incident_router
-
-
-
-from app.core.langsmith import configure_langsmith
+from app.api.routes.github_webhook import router as github_webhook_router
 
 configure_langsmith()
 
@@ -33,6 +30,7 @@ app = FastAPI(
 app.include_router(request_router)
 app.include_router(ai_router)
 app.include_router(incident_router)
+app.include_router(github_webhook_router)
 
 
 @app.get("/")

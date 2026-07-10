@@ -83,7 +83,7 @@ class ReviewerAgent:
         )
 
         return {
-            "approved": result.approved,
+            "review_approved": result.approved,
             "review_comments": result.review_comments,
-            "confidence": result.confidence,
+            "review_confidence": result.confidence,
         }
