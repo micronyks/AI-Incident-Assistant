@@ -40,3 +40,6 @@ class IncidentState(TypedDict):
     # HITL
     approval_status: str
     approved_by: str
+
+    # Jira
+    jira_issue_key: str

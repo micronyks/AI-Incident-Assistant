@@ -47,6 +47,7 @@ export interface IncidentAnalysis {
   priority: IncidentPriority;
   priority_confidence: number;
   priority_reason: string;
+  jira_issue_key?: string;
 }
 
 // ─── Request/Form Domain ─────────────────────────────────────────────────────

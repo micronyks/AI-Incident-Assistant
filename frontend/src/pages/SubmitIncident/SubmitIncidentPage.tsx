@@ -51,24 +51,34 @@ export function SubmitIncidentPage() {
           {/* ── LEFT ── */}
           <Box>
             <AnimatePresence mode="wait">
-              {(submissionStep === 'form' || submissionStep === 'submitting') && (
+              {(submissionStep === 'form' || submissionStep === 'submitting' || submissionStep === 'error') && (
                 <motion.div key="form" variants={pageVariants} initial="initial" animate="enter" exit="exit">
                   <Card sx={{ p: { xs: 2.5, md: 3.5 } }}>
                     <Box sx={{ mb: 3 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
                         <Box
                           sx={{
-                            width: 8, height: 8, borderRadius: '50%',
-                            background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
+                            width: 8,
+                            height: 8,
+                            borderRadius: '50%',
+                            background:
+                              'linear-gradient(135deg, #6366f1, #06b6d4)',
                           }}
                         />
-                        <Typography variant="h6" fontWeight={700}>Incident Details</Typography>
+                        <Typography variant="h6" fontWeight={700}>
+                          Incident Details
+                        </Typography>
                       </Box>
                       <Typography variant="body2" color="text.secondary">
-                        Fill in the details below. AI agents will automatically analyze and prioritize your incident.
+                        Fill in the details below. AI agents will automatically
+                        analyze and prioritize your incident.
                       </Typography>
                     </Box>
-                    <IncidentForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
+                    <IncidentForm
+                      form={form}
+                      onSubmit={onSubmit}
+                      isLoading={isLoading}
+                    />
                   </Card>
                 </motion.div>
               )}
@@ -77,29 +87,6 @@ export function SubmitIncidentPage() {
                 <motion.div key="analyzing" variants={pageVariants} initial="initial" animate="enter" exit="exit">
                   <Card sx={{ p: 3 }}>
                     <AnalyzingState />
-                  </Card>
-                </motion.div>
-              )}
-
-              {submissionStep === 'error' && (
-                <motion.div key="error" variants={pageVariants} initial="initial" animate="enter" exit="exit">
-                  <Card
-                    sx={{
-                      p: 4, textAlign: 'center',
-                      border: '1px solid rgba(239,68,68,0.2)',
-                      background: 'rgba(239,68,68,0.05)',
-                    }}
-                  >
-                    <Typography fontSize="3rem">❌</Typography>
-                    <Typography variant="h6" fontWeight={700} color="error" mt={2}>
-                      Submission Failed
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" mt={1} mb={3}>
-                      Something went wrong. Please try again.
-                    </Typography>
-                    <Button variant="outlined" color="error" startIcon={<RefreshIcon />} onClick={handleReset}>
-                      Try Again
-                    </Button>
                   </Card>
                 </motion.div>
               )}

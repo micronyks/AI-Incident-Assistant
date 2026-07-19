@@ -15,9 +15,6 @@ export const incidentApi = baseApi.injectEndpoints({
     createRequest: builder.mutation<IncidentRecord, CreateIncidentPayload>({
       query: (body) => ({
         url: '/requests',
-        // Note: /requests is at root, not under /api/v1
-        // Override base URL for this endpoint
-        baseUrl: '/',
         method: 'POST',
         body,
       }),
@@ -27,7 +24,7 @@ export const incidentApi = baseApi.injectEndpoints({
     // ── Trigger AI analysis on an incident
     analyzeIncident: builder.mutation<
       IncidentAnalysis,
-      { title: string; description: string; reported_category: string }
+      { title: string; description: string; reported_category: string; request_id: string }
     >({
       query: (body) => ({
         url: '/incidents/analyze',

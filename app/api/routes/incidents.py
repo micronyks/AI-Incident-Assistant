@@ -1,13 +1,18 @@
 import uuid
-
+from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
 from fastapi import APIRouter
-
+from app.services.request_service import RequestService
+from app.domain.enums import RequestPriority
 from app.ai.schemas.incident import (
     IncidentAnalysisRequest,
     IncidentAnalysisResponse,
 )
 from app.ai.workflows.incident_analysis import incident_workflow
-
+from sqlalchemy.orm import Session
+from app.database.session import get_db
+from app.services.request_service import RequestService
+from app.services.ingestion_service import IngestionService
+from app.domain.enums import RequestStatus
 from langgraph.types import Command
 
 from app.schemas.resume import ResumeRequest
@@ -24,12 +29,15 @@ router = APIRouter(
 )
 def analyze_incident(
     request: IncidentAnalysisRequest,
+    db: Session = Depends(get_db)  # Add db session dependency
 ):
     config = {
         "configurable": {
             "thread_id": str(uuid.uuid4())
         }
     }
+
+   
 
     print(f"Thread ID: {config['configurable']['thread_id']}")
     result = incident_workflow.invoke(
@@ -39,6 +47,23 @@ def analyze_incident(
         },
         config=config
     )
+
+    # If request_id was provided, write back the Jira Key and final calculated priority to MySQL
+    jira_key = result.get("jira_issue_key")
+    if request.request_id and jira_key:
+        service = RequestService(db)
+        
+        # Map agent priority string (P1-P4) to RequestPriority enum
+        calculated_priority_str = result.get("priority", "P3")
+        try:
+            calculated_priority = RequestPriority[calculated_priority_str]
+        except KeyError:
+            calculated_priority = RequestPriority.P3
+        service.update_jira_key(
+            request_id=request.request_id,
+            jira_key=jira_key,
+            priority=calculated_priority
+        )
 
     return IncidentAnalysisResponse(
         summary=result["summary"],
@@ -53,6 +78,7 @@ def analyze_incident(
         priority=result["priority"],
         priority_confidence=result["priority_confidence"],  
         priority_reason=result["priority_reason"],
+        jira_issue_key=result.get("jira_issue_key"),  # New mapped field
     )
 
 

@@ -9,4 +9,4 @@ def approval_router(state: IncidentState):
     if state["category"] == RequestCategory.HARDWARE:
         return "approval"
 
-    return END
+    return 'jira_creation'

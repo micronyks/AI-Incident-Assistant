@@ -8,7 +8,7 @@ from app.schemas.request import RequestResponse
 from app.services.request_service import RequestService
 
 router = APIRouter(
-    prefix="/requests",
+    prefix="/api/v1/requests",
     tags=["Requests"],
 )
 
