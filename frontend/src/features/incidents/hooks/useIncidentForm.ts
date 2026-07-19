@@ -65,6 +65,7 @@ export function useIncidentForm() {
           title: values.title,
           description: values.description,
           reported_category: values.category,
+          request_id: record.id,
         }).unwrap();
 
         dispatch(setAnalysisResult(analysis));

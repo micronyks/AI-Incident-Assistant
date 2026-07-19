@@ -66,6 +66,20 @@ class Settings(BaseSettings):
     langsmith_project: str = "enterprise-ai-platform"
     github_personal_access_token: str | None = None
 
+    # ===========================
+    # Qdrant
+    # ===========================
+    qdrant_url: str = "http://localhost:6333"
+    qdrant_collection_name: str = "incident_manager"
+
+    # ===========================
+    # Jira
+    # ===========================
+    jira_server: str = "https://engagewithknowledge.atlassian.net"
+    jira_username: str | None = None
+    jira_api_token: str | None = None
+    jira_project_key: str = "IM"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",

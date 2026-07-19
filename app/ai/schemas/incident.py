@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class IncidentAnalysisRequest(BaseModel):
     title: str
     description: str
+    request_id: str | None = None  # Add this field
 
 
 # 1. Define the new inner structure
@@ -28,3 +29,5 @@ class IncidentAnalysisResponse(BaseModel):
     priority: str = "UNKNOWN"
     priority_confidence: float
     priority_reason: str
+    
+    jira_issue_key: str | None = Field(default=None, description="The created Jira ticket reference key.")

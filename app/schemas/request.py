@@ -18,6 +18,8 @@ class CreateRequest(BaseModel):
 
     category: RequestCategory
 
+    priority: RequestPriority
+
 class RequestResponse(BaseModel):
     id: UUID
 

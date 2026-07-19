@@ -24,3 +24,11 @@ uv add langchain-chroma
 uv add langchain-text-splitters
 uv add langchain-groq
 uv add langgraph
+uv add "logfire[fastapi]"
+
+
+
+
+uv run uvicorn app.main:app --reload --port 8000
+.venv\Scripts\Activate.ps1
+

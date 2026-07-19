@@ -39,3 +39,5 @@ class Request(BaseEntity):
 
     resolution_summary = mapped_column(Text, nullable=True)
     assigned_team = mapped_column(String(100), nullable=True)
+
+    jira_issue_key: Mapped[str | None] = mapped_column(String(50), nullable=True, unique=True)
