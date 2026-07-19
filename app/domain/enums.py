@@ -21,8 +21,12 @@ class RequestPriority(str, Enum):
 
 class RequestStatus(str, Enum):
     OPEN = "OPEN"
+    AI_ANALYZING= "AI_ANALYZING"
     IN_PROGRESS = "IN_PROGRESS"
     SUBMITTED = "SUBMITTED"
     WAITING_FOR_APPROVAL = "WAITING_FOR_APPROVAL"
     RESOLVED = "RESOLVED"
     CLOSED = "CLOSED"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    

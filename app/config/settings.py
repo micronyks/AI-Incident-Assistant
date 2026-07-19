@@ -64,6 +64,7 @@ class Settings(BaseSettings):
     langsmith_endpoint: str | None = None
     langsmith_api_key: str | None = None
     langsmith_project: str = "enterprise-ai-platform"
+    github_personal_access_token: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",

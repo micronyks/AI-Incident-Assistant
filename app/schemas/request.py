@@ -18,13 +18,6 @@ class CreateRequest(BaseModel):
 
     category: RequestCategory
 
-    priority: RequestPriority = RequestPriority.P3
-
-    resolution_summary: str | None = Field(None, min_length=10)
-
-    assigned_team: str | None = Field(None, min_length=3, max_length=100)
-
-
 class RequestResponse(BaseModel):
     id: UUID
 
